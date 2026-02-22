@@ -14,6 +14,11 @@ from datetime import datetime
 from langchain_openai import ChatOpenAI
 from langchain.tools import tool
 from langchain.agents import create_agent
+from dotenv import load_dotenv
+
+
+# 加载环境变量（包括 LangSmith 配置）
+load_dotenv()
 
 # 从环境变量加载 API Key
 ZHIPU_API_KEY = os.getenv("ZHIPU_API_KEY")

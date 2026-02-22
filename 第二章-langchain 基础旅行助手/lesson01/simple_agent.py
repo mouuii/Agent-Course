@@ -15,7 +15,7 @@ ZHIPU_API_KEY = os.getenv("ZHIPU_API_KEY")
 # 或者使用环境变量
 llm = ChatOpenAI(
     temperature=0.6,
-    model="glm-4.7",
+    model="glm-5",
     openai_api_key=os.getenv("ZAI_API_KEY"),
     openai_api_base="https://open.bigmodel.cn/api/paas/v4/"
 )
