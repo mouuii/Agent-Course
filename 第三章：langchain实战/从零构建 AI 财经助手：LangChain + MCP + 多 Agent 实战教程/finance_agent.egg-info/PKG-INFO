@@ -1,0 +1,275 @@
+Metadata-Version: 2.4
+Name: finance-agent
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+Requires-Dist: duckduckgo-search>=8.1.1
+Requires-Dist: fastapi>=0.129.0
+Requires-Dist: langchain>=1.2.10
+Requires-Dist: langchain-openai>=1.1.9
+Requires-Dist: langgraph>=1.0.8
+Requires-Dist: mcp>=1.26.0
+Requires-Dist: sse-starlette>=3.2.0
+Requires-Dist: uvicorn>=0.40.0
+Requires-Dist: yfinance>=1.1.0
+
+# Finance Agent - 财经分析智能体
+
+> 基于 LangChain + LangGraph 构建的财经分析 AI Agent，用于教学演示如何开发智能体应用、使用 MCP 协议和实现多 Agent 协作。
+
+## 项目简介
+
+Finance Agent 是一个功能完整的财经分析智能体系统，展示了现代 AI Agent 开发的核心技术：
+
+- 🤖 **LangChain Agent 开发** - 使用 LangChain 框架构建工具调用型 Agent
+- 🔄 **LangGraph 工作流** - 使用 LangGraph 构建复杂的 Agent 工作流和状态管理
+- 📡 **MCP 协议集成** - 实现 Model Context Protocol，让工具可被其他应用使用
+- 🤝 **多 Agent 协作** - 演示多个专业 Agent 如何协同工作
+- 🌐 **Web 界面** - 提供 FastAPI 后端和前端界面，方便交互使用
+
+## 功能特性
+
+### 核心功能
+
+- ✅ 股票信息查询（实时价格、市值、市盈率等）
+- ✅ 历史数据分析（价格走势、成交量）
+- ✅ 财务报表查询（利润表、资产负债表、现金流量表）
+- ✅ 分析师评级和推荐
+- ✅ 财经新闻搜索
+- ✅ 多股票对比分析
+
+### 技术特性
+
+- 🔧 基于智谱 GLM-4-Flash 模型
+- 🛠️ 8 个专业财经工具
+- 💡 ReAct Agent 推理模式
+- 🌊 流式输出支持
+- 🎯 中文优化
+
+## 快速开始
+
+### 1. 环境要求
+
+- Python 3.13+
+- UV 包管理器（推荐）或 pip
+
+### 2. 安装依赖
+
+```bash
+# 使用 uv（推荐）
+uv sync
+
+# 或使用 pip
+pip install -e .
+```
+
+### 3. 配置 API Key
+
+编辑 `finance_agent.py` 中的 API Key 配置：
+
+```python
+ZHIPU_API_KEY = "your-api-key-here"
+```
+
+### 4. 运行方式
+
+#### 命令行模式
+
+```bash
+# 使用 uv
+uv run python finance_agent.py
+
+# 或直接运行
+python finance_agent.py
+```
+
+#### Web 模式
+
+```bash
+# 启动 Web 服务
+uv run python api/server.py
+
+# 访问 http://localhost:8000
+```
+
+## 项目结构
+
+```
+finance-agent/
+├── finance_agent.py      # 核心 Agent 实现
+├── main.py               # 入口文件
+├── api/                  # Web API
+│   └── server.py         # FastAPI 服务器
+├── agents/               # 多 Agent 示例
+│   ├── mcp_server.py     # MCP Server 实现
+│   ├── research_agent.py # 研究 Agent
+│   ├── analysis_agent.py # 分析 Agent
+│   └── multi_agent_system.py  # 多 Agent 协调器
+├── static/               # 前端文件
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── docs/                 # 教学文档
+│   ├── langchain-guide.md      # LangChain 教程
+│   ├── mcp-guide.md            # MCP 使用指南
+│   └── multi-agent-guide.md   # 多 Agent 协作教程
+└── examples/             # 代码示例
+```
+
+## 教学内容
+
+本项目专为教学设计，包含以下学习材料：
+
+### 1. LangChain Agent 开发
+
+查看 [docs/langchain-guide.md](docs/langchain-guide.md) 学习：
+- 如何定义工具（@tool 装饰器）
+- 如何创建 ReAct Agent
+- 如何处理流式输出
+- 提示词工程最佳实践
+
+### 2. MCP 协议使用
+
+查看 [docs/mcp-guide.md](docs/mcp-guide.md) 学习：
+- MCP 协议基础
+- 如何实现 MCP Server
+- 如何在 Claude Desktop 中使用
+- 工具封装和暴露
+
+### 3. 多 Agent 协作
+
+查看 [docs/multi-agent-guide.md](docs/multi-agent-guide.md) 学习：
+- 多 Agent 架构设计
+- 使用 LangGraph 协调多个 Agent
+- Agent 间消息传递
+- 复杂工作流编排
+
+## 使用示例
+
+### 命令行交互
+
+```bash
+$ python finance_agent.py
+
+📊 请输入问题: 帮我分析一下苹果公司（AAPL）的投资价值
+
+  [调用工具] get_stock_info({"ticker": "AAPL"})
+  [调用工具] get_recommendations({"ticker": "AAPL"})
+  [调用工具] get_stock_news({"ticker": "AAPL"})
+
+根据分析结果...
+```
+
+### Python 代码调用
+
+```python
+from finance_agent import agent
+from langchain_core.messages import HumanMessage
+
+# 同步调用
+result = agent.invoke({
+    "messages": [HumanMessage(content="AAPL 和 MSFT 哪个更值得投资？")]
+})
+print(result["messages"][-1].content)
+
+# 流式调用
+for msg, metadata in agent.stream(
+    {"messages": [HumanMessage(content="分析特斯拉的财务状况")]},
+    stream_mode="messages"
+):
+    if hasattr(msg, "content") and msg.content:
+        print(msg.content, end="", flush=True)
+```
+
+### Web API 调用
+
+```bash
+# 非流式
+curl -X POST http://localhost:8000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "查询 AAPL 股价"}'
+
+# 流式（SSE）
+curl -N http://localhost:8000/api/stream \
+  -H "Content-Type: application/json" \
+  -d '{"message": "分析贵州茅台"}'
+```
+
+## 工具列表
+
+| 工具名称 | 功能说明 | 示例用法 |
+|---------|---------|---------|
+| `get_stock_info` | 获取股票基本信息 | get_stock_info("AAPL") |
+| `get_stock_history` | 获取历史价格数据 | get_stock_history("AAPL", "1mo") |
+| `get_financial_statement` | 获取财务报表 | get_financial_statement("AAPL", "income") |
+| `get_stock_news` | 获取股票新闻 | get_stock_news("AAPL") |
+| `get_recommendations` | 获取分析师评级 | get_recommendations("AAPL") |
+| `compare_stocks` | 对比多只股票 | compare_stocks("AAPL,MSFT,GOOGL") |
+| `search_financial_news` | 搜索财经新闻 | search_financial_news("美联储加息") |
+| `think` | Agent 思考反思 | think("需要更多数据...") |
+
+## 技术栈
+
+- **LLM**: 智谱 GLM-4-Flash（兼容 OpenAI API）
+- **Agent 框架**: LangChain + LangGraph
+- **Web 框架**: FastAPI + Uvicorn
+- **数据源**: yfinance (Yahoo Finance)
+- **搜索**: DuckDuckGo Search
+- **协议**: MCP (Model Context Protocol)
+
+## 开发路线图
+
+- [x] 核心 Agent 功能
+- [x] 命令行界面
+- [ ] Web API 服务
+- [ ] 前端界面
+- [ ] MCP Server 实现
+- [ ] 多 Agent 协作示例
+- [ ] 完整教学文档
+- [ ] Docker 部署支持
+- [ ] 单元测试
+
+## 常见问题
+
+### Q: 支持哪些股票市场？
+
+A: 支持全球主要市场，包括：
+- 美股: AAPL, MSFT, GOOGL 等
+- A股: 600519.SS（贵州茅台）, 000001.SZ（平安银行）等
+- 港股: 0700.HK（腾讯）等
+
+### Q: 如何切换到其他 LLM？
+
+A: 修改 `finance_agent.py` 中的 `llm` 配置：
+
+```python
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(
+    model="gpt-4",  # 改为其他模型
+    openai_api_key="your-key",
+    openai_api_base="https://api.openai.com/v1",
+)
+```
+
+### Q: MCP Server 如何使用？
+
+A: 参考 [docs/mcp-guide.md](docs/mcp-guide.md) 的详细说明。
+
+## 贡献指南
+
+欢迎提交 Issue 和 Pull Request！
+
+## 许可证
+
+MIT License
+
+## 联系方式
+
+- 项目地址: [GitHub](https://github.com/yourusername/finance-agent)
+- 问题反馈: [Issues](https://github.com/yourusername/finance-agent/issues)
+
+---
+
+**注意**: 本项目仅用于学习和研究目的，不构成投资建议。投资有风险，决策需谨慎。

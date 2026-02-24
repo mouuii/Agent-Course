@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>财经智能助手</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- 顶部市场行情条 -->
+        <div class="market-bar">
+            <div class="market-bar-inner">
+                <div class="ticker-item">
+                    <span class="ticker-name">上证指数</span>
+                    <span class="ticker-price">3261.12</span>
+                    <span class="ticker-change negative">-1.37%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">深证成指</span>
+                    <span class="ticker-price">10,223.45</span>
+                    <span class="ticker-change negative">-1.28%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">创业板指</span>
+                    <span class="ticker-price">2,034.78</span>
+                    <span class="ticker-change negative">-1.57%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">北证50</span>
+                    <span class="ticker-price">1,529.36</span>
+                    <span class="ticker-change positive">+0.42%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 聊天主区域 -->
+        <div class="chat-wrapper">
+            <!-- 聊天头部 -->
+            <div class="chat-header">
+                <div class="bot-info">
+                    <div class="bot-avatar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#38d9a9" stroke-width="1.5"/>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="#38d9a9" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="9" cy="10" r="1" fill="#38d9a9"/>
+                            <circle cx="15" cy="10" r="1" fill="#38d9a9"/>
+                            <path d="M7 7l2-2M17 7l-2-2" stroke="#38d9a9" stroke-width="1.2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="bot-name">财经助手</span>
+                </div>
+            </div>
+
+            <!-- 消息列表 -->
+            <div class="chat-messages" id="chatMessages">
+                <!-- 欢迎消息 -->
+                <div class="msg msg-bot">
+                    <div class="msg-body">
+                        <div class="msg-content">
+                            <p>你好！我是财经智能助手，可以帮你分析股票、解读财务数据、搜索财经资讯。</p>
+                            <div class="quick-actions">
+                                <button class="quick-btn" data-query="大盘最近走势如何？">大盘走势</button>
+                                <button class="quick-btn" data-query="帮我分析一下贵州茅台的股票">分析茅台</button>
+                                <button class="quick-btn" data-query="对比苹果和微软的股票">对比个股</button>
+                                <button class="quick-btn" data-query="最近有什么重要的财经新闻？">财经资讯</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部输入区 -->
+        <div class="input-wrapper">
+            <div class="input-container">
+                <textarea
+                    id="userInput"
+                    placeholder="输入你的财经问题..."
+                    rows="1"
+                ></textarea>
+                <button id="sendButton" class="send-btn" title="发送">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="disclaimer">&#9432; 部分内容由AI生成，不构成投资建议</div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

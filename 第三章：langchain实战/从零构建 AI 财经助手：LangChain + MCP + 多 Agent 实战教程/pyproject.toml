@@ -1,0 +1,24 @@
+[project]
+name = "finance-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "duckduckgo-search>=8.1.1",
+    "fastapi>=0.129.0",
+    "langchain>=1.2.10",
+    "langchain-openai>=1.1.9",
+    "langgraph>=1.0.8",
+    "mcp>=1.26.0",
+    "langchain-mcp-adapters>=0.1.0",
+    "sse-starlette>=3.2.0",
+    "uvicorn>=0.40.0",
+    "yfinance>=1.1.0",
+]
+
+[tool.setuptools]
+py-modules = ["finance_agent", "main"]
+
+[tool.setuptools.packages.find]
+include = ["api*", "agents*"]

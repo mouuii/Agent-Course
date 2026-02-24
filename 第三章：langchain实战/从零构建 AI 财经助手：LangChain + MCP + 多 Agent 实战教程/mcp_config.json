@@ -1,0 +1,14 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/config.json",
+  "mcpServers": {
+    "finance-agent": {
+      "command": "/Users/z/Code/caijing/finance-agent/.venv/bin/python",
+      "args": [
+        "/Users/z/Code/caijing/finance-agent/agents/mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/Users/z/Code/caijing/finance-agent"
+      }
+    }
+  }
+}
